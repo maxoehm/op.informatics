@@ -1,18 +1,23 @@
 package de.maxoeh.me;
 
 import de.maxoeh.me.BiBaum.BET;
-import de.maxoeh.me.BiBaum.MorseTree;
-import de.maxoeh.me.BiBaum.WordCompletion;
-import de.maxoeh.me.dast.PalindromStackPruefung;
-import de.maxoeh.me.dast.Queue;
-import de.maxoeh.me.dast.StackZahlQueue;
-
-import java.util.ArrayList;
-import java.util.List;
+import de.maxoeh.me.BiBaum.BinaryTree;
 
 public class Application {
 
     public static void main(String [] args) {
+
+        BinaryTree<Integer> tree = new BinaryTree<Integer>();
+        tree.setContent(5);
+        tree.setLeftTree(new BinaryTree<Integer>(4, new BinaryTree<>(3), new BinaryTree<>(8)));
+        tree.setRightTree(new BinaryTree<Integer>(12, new BinaryTree<>(6, new BinaryTree<>(1), new BinaryTree<>(7)), new BinaryTree<>(15, new BinaryTree<>(14), new BinaryTree<>(16))));
+
+        tree.remove(tree, 5);
+        var g = 5 + 1;
+    }
+
+
+    void BETTesting() {
         try {
 
             System.out.println("\n\ntest1: ( 3 + 2 ) * 3 + 1");

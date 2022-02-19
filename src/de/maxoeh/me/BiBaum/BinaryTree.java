@@ -237,35 +237,51 @@ public class BinaryTree<ContentType> implements Compareable {
     }
 
 
+    /**
+     * Gibt das gesuchte Objekt anhand seines Wertes zurück. Nutzt compareTo(),
+     * welches oben implementiert ist.
+     * @param t Zu durchsuchender Baum
+     * @param key Suchparameter
+     * @return Gefundenes Objekt
+     */
 
-    public BinaryTree search(Object key) {
+    private BinaryTree search(BinaryTree<ContentType> t, ContentType key) {
+        try {
 
-            if (BinaryTree.this.getContent() == key) {
-                return this;
-            } else if (this.compareTo(key) > 0) {
-                search(key);
-            } else if (this.compareTo(key) < 0) {
-                search(key);
+            if (t.compareTo(key) == 0) {
+                return t;
+            } else if (t.compareTo(key) == -1) {
+                return search(t.getRightTree(), key);
+            } else if (t.compareTo(key) == 1) {
+                return search(t.getLeftTree(), key);
             }
 
-            throw new NoSuchElementException("Element not in tree");
-    }
-
-
-
-    public BinaryTree searchInt(int key) {
-        var o = this;
-
-        if ((Integer) o.getContent() == key) {
-            return o;
-        } else if ((Integer) o.getContent() > key) {
-            searchInt(key);
-        } else if ((Integer) o.getContent() < key) {
-            searchInt(key);
+        } catch (NullPointerException e) {
+            throw new NoSuchElementException("No such element");
         }
-        throw new NoSuchElementException("Element not in tree");
+        throw new NoSuchElementException("No such element");
     }
 
+    /**
+     * Entfernt eine Node aus dem Binary Tree, indem es die Node durch
+     * die kleinste (Wertperspektivisch) Node ersetzt.
+     * @param key
+     * @return
+     */
+    public void remove(BinaryTree t, ContentType key) {
 
+        var dlt = search(t, key);
+        var tmp = deepest(dlt.getRightTree());
+        dlt.setContent(tmp.getContent());
+        tmp.setContent(null);
+
+    }
+
+    private BinaryTree deepest(BinaryTree t) {
+        if (t.getLeftTree().getLeftTree() != null) {
+            return deepest(t.getLeftTree());
+        }
+        return t;
+    }
 
 }
