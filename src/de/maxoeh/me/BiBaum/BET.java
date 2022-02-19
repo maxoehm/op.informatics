@@ -2,6 +2,9 @@ package de.maxoeh.me.BiBaum;
 
 import java.util.Stack;
 
+/**
+ *  Binary Expression Tree (BET) implementing parser
+ */
 public class BET {
 
     // Declaration of the root

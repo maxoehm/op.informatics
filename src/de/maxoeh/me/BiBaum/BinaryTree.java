@@ -1,5 +1,7 @@
 package de.maxoeh.me.BiBaum;
 
+import java.util.NoSuchElementException;
+
 /**
  * <p>
  * Materialien zu den zentralen NRW-Abiturpruefungen im Fach Informatik ab 2017.
@@ -19,7 +21,7 @@ package de.maxoeh.me.BiBaum;
  * @version Generisch_03 2014-03-01
  */
 
-public class BinaryTree<ContentType> {
+public class BinaryTree<ContentType> implements Compareable {
 
     /* --------- Anfang der privaten inneren Klasse -------------- */
 
@@ -28,7 +30,7 @@ public class BinaryTree<ContentType> {
      * null ist, ein nicht-leerer Baum jedoch immer eine nicht-null-Wurzel sowie
      * nicht-null-Teilbaeume, ggf. leere Teilbaeume hat.
      */
-    public class BTNode<CT> {
+    public class BTNode<CT>  {
 
         private CT content;
         private BinaryTree<CT> left, right;
@@ -41,7 +43,27 @@ public class BinaryTree<ContentType> {
             left = new BinaryTree<CT>();
             right = new BinaryTree<CT>();
         }
+    }
 
+    @Override
+    public int compareTo(Object o) {
+
+        if (o instanceof String){
+            return this.node.content.toString().compareTo(o.toString());
+        } else
+
+        if (o  instanceof Integer){
+            return ((Integer)this.node.content).compareTo((Integer)o);
+        } else
+
+        if (o instanceof Character){
+            return ((Character)this.node.content).compareTo((Character)o);
+        } else
+
+        if (o.equals(this.node.content)) {
+            return 0;
+        }
+        return -1;
     }
 
     /* ----------- Ende der privaten inneren Klasse -------------- */
@@ -213,5 +235,37 @@ public class BinaryTree<ContentType> {
     public char getElementChar() {
         return getContent().toString().charAt(0);
     }
+
+
+
+    public BinaryTree search(Object key) {
+
+            if (BinaryTree.this.getContent() == key) {
+                return this;
+            } else if (this.compareTo(key) > 0) {
+                search(key);
+            } else if (this.compareTo(key) < 0) {
+                search(key);
+            }
+
+            throw new NoSuchElementException("Element not in tree");
+    }
+
+
+
+    public BinaryTree searchInt(int key) {
+        var o = this;
+
+        if ((Integer) o.getContent() == key) {
+            return o;
+        } else if ((Integer) o.getContent() > key) {
+            searchInt(key);
+        } else if ((Integer) o.getContent() < key) {
+            searchInt(key);
+        }
+        throw new NoSuchElementException("Element not in tree");
+    }
+
+
 
 }
