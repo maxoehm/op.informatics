@@ -19,11 +19,11 @@ package graphs;
  * Das aktuelle Objekt kann gelesen, veraendert oder geloescht werden. Ausserdem
  * kann vor dem aktuellen Objekt ein Listenobjekt eingefuegt werden.
  * </p>
- * 
+ *
  * @author Qualitaets- und UnterstuetzungsAgentur - Landesinstitut fuer Schule
  * @version Generisch_06 2015-10-25
  */
-public class List<ContentType> extends Graph {
+public class List<ContentType> {
 
   /* --------- Anfang der privaten inneren Klasse -------------- */
 
@@ -34,7 +34,7 @@ public class List<ContentType> extends Graph {
 
     /**
      * Ein neues Objekt wird erschaffen. Der Verweis ist leer.
-     * 
+     *
      * @param pContent das Inhaltsobjekt vom Typ ContentType
      */
     private ListNode(ContentType pContent) {
@@ -44,7 +44,7 @@ public class List<ContentType> extends Graph {
 
     /**
      * Der Inhalt des Knotens wird zurueckgeliefert.
-     * 
+     *
      * @return das Inhaltsobjekt des Knotens
      */
     public ContentType getContentObject() {
@@ -53,7 +53,7 @@ public class List<ContentType> extends Graph {
 
     /**
      * Der Inhalt dieses Kontens wird gesetzt.
-     * 
+     *
      * @param pContent das Inhaltsobjekt vom Typ ContentType
      */
     public void setContentObject(ContentType pContent) {
@@ -62,7 +62,7 @@ public class List<ContentType> extends Graph {
 
     /**
      * Der Nachfolgeknoten wird zurueckgeliefert.
-     * 
+     *
      * @return das Objekt, auf das der aktuelle Verweis zeigt
      */
     public ListNode getNextNode() {
@@ -72,7 +72,7 @@ public class List<ContentType> extends Graph {
     /**
      * Der Verweis wird auf das Objekt, das als Parameter uebergeben
      * wird, gesetzt.
-     * 
+     *
      * @param pNext der Nachfolger des Knotens
      */
     public void setNextNode(ListNode pNext) {
@@ -104,7 +104,7 @@ public class List<ContentType> extends Graph {
   /**
    * Die Anfrage liefert den Wert true, wenn die Liste keine Objekte enthaelt,
    * sonst liefert sie den Wert false.
-   * 
+   *
    * @return true, wenn die Liste leer ist, sonst false
    */
   public boolean isEmpty() {
@@ -115,12 +115,12 @@ public class List<ContentType> extends Graph {
   /**
    * Die Anfrage liefert den Wert true, wenn es ein aktuelles Objekt gibt,
    * sonst liefert sie den Wert false.
-   * 
+   *
    * @return true, falls Zugriff moeglich, sonst false
    */
   public boolean hasAccess() {
     // Es gibt keinen Zugriff, wenn current auf kein Element verweist.
-    return current != null; 
+    return current != null;
   }
 
   /**
@@ -133,13 +133,6 @@ public class List<ContentType> extends Graph {
   public void next() {
     if (this.hasAccess()) {
       current = current.getNextNode();
-    }
-  }
-
-  public void clear() {
-    while (hasAccess()) {
-      remove();
-      next();
     }
   }
 
@@ -167,7 +160,7 @@ public class List<ContentType> extends Graph {
    * Falls es ein aktuelles Objekt gibt (hasAccess() == true), wird das
    * aktuelle Objekt zurueckgegeben, andernfalls (hasAccess() == false) gibt
    * die Anfrage den Wert null zurueck.
-   * 
+   *
    * @return das aktuelle Objekt (vom Typ ContentType) oder null, wenn es
    *         kein aktuelles Objekt gibt
    */
@@ -183,13 +176,13 @@ public class List<ContentType> extends Graph {
    * Falls es ein aktuelles Objekt gibt (hasAccess() == true) und pContent
    * ungleich null ist, wird das aktuelle Objekt durch pContent ersetzt. Sonst
    * geschieht nichts.
-   * 
+   *
    * @param pContent
    *            das zu schreibende Objekt vom Typ ContentType
    */
   public void setContent(ContentType pContent) {
     // Nichts tun, wenn es keinen Inhalt oder kein aktuelles Element gibt.
-    if (pContent != null && this.hasAccess()) { 
+    if (pContent != null && this.hasAccess()) {
       current.setContentObject(pContent);
     }
   }
@@ -202,7 +195,7 @@ public class List<ContentType> extends Graph {
    * gibt weiterhin kein aktuelles Objekt (hasAccess() == false). <br />
    * Falls es kein aktuelles Objekt gibt (hasAccess() == false) und die Liste
    * nicht leer ist oder pContent gleich null ist, geschieht nichts.
-   * 
+   *
    * @param pContent
    *            das einzufuegende Objekt vom Typ ContentType
    */
@@ -211,7 +204,7 @@ public class List<ContentType> extends Graph {
       if (this.hasAccess()) { // Fall: Es gibt ein aktuelles Element.
 
         // Neuen Knoten erstellen.
-        ListNode newNode = new ListNode(pContent); 
+        ListNode newNode = new ListNode(pContent);
 
         if (current != first) { // Fall: Nicht an erster Stelle einfuegen.
           ListNode previous = this.getPrevious(current);
@@ -227,7 +220,7 @@ public class List<ContentType> extends Graph {
         if (this.isEmpty()) { // Fall: In leere Liste einfuegen.
 
           // Neuen Knoten erstellen.
-          ListNode newNode = new ListNode(pContent); 
+          ListNode newNode = new ListNode(pContent);
 
           first = newNode;
           last = newNode;
@@ -243,7 +236,7 @@ public class List<ContentType> extends Graph {
    * Das aktuelle Objekt bleibt unveraendert. <br />
    * Wenn die Liste leer ist, wird das Objekt pContent in die Liste eingefuegt
    * und es gibt weiterhin kein aktuelles Objekt (hasAccess() == false).
-   * 
+   *
    * @param pContent
    *            das anzuhaengende Objekt vom Typ ContentType
    */
@@ -255,7 +248,7 @@ public class List<ContentType> extends Graph {
       } else { // Fall: An nicht-leere Liste anfuegen.
 
         // Neuen Knoten erstellen.
-        ListNode newNode = new ListNode(pContent); 
+        ListNode newNode = new ListNode(pContent);
 
         last.setNextNode(newNode);
         last = newNode; // Letzten Knoten aktualisieren.
@@ -270,13 +263,13 @@ public class List<ContentType> extends Graph {
    * Ansonsten wird die Liste pList an die aktuelle Liste angehaengt.
    * Anschliessend wird pList eine leere Liste. Das aktuelle Objekt bleibt
    * unveraendert. Insbesondere bleibt hasAccess identisch.
-   * 
+   *
    * @param pList
    *            die am Ende anzuhaengende Liste vom Typ List<ContentType>
    */
   public void concat(List<ContentType> pList) {
     if (pList != this && pList != null && !pList.isEmpty()) { // Nichts tun,
-    // wenn pList und this identisch, pList leer oder nicht existent.
+      // wenn pList und this identisch, pList leer oder nicht existent.
 
       if (this.isEmpty()) { // Fall: An leere Liste anfuegen.
         this.first = pList.first;
@@ -304,7 +297,7 @@ public class List<ContentType> extends Graph {
    */
   public void remove() {
     // Nichts tun, wenn es kein aktuelle Element gibt oder die Liste leer ist.
-    if (this.hasAccess() && !this.isEmpty()) { 
+    if (this.hasAccess() && !this.isEmpty()) {
 
       if (current == first) {
         first = first.getNextNode();
@@ -350,5 +343,5 @@ public class List<ContentType> extends Graph {
       return null;
     }
   }
-  
+
 }
