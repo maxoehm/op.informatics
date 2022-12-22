@@ -1,4 +1,4 @@
-package de.maxoeh.me.dast;
+package de.maxoeh.me.datenstrukturen;
 
 /**
  * <p>
